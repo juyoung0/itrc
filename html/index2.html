@@ -20,6 +20,12 @@
     <script src="../js/leaflet.curve.js"></script>
     <script src="../js/heatmap.js"></script>
     <script src="../js/leaflet-heatmap.js"></script>
+    <link rel="stylesheet" href="../css/leaflet-draw.css"/>
+    <script src="../js/leaflet-draw.js"></script>
+    <link rel="stylesheet" href="../css/leaflet-toolbar.css"/>
+    <script src="../js/leaflet-toolbar.js"></script>
+
+
 </head>
 <body>
 <div class="row">
@@ -96,6 +102,20 @@
     heatmapLayer.setData(points);
     heatmapLayer.addTo(map);
 
+    L.DrawToolbar = L.Toolbar.Control.extend({
+        position: 'topleft',
+        options: {
+            actions: [
+                L.Draw.Polygon,
+                L.Draw.Polyline,
+                L.Draw.Marker,
+                L.Draw.Rectangle,
+                L.Draw.Circle
+            ],
+            className: 'leaflet-draw-toolbar' // Style the toolbar with Leaflet.draw's custom CSS
+        }
+    });
+    new L.DrawToolbar().addTo(map);
     function onMapClick(e) {
         console.log(e);
     }
