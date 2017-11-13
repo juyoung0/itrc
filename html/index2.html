@@ -1,62 +1,106 @@
-<!DOCTYPE HTML>
 <html>
 <head>
-    <title>OpenLayers Demo</title>
-    <style type="text/css">
-        html, body, #basicMap {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-        }
+    <meta charset="utf-8">
+    <title>Leaflet.curve plugin demo</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0/dist/leaflet.css" />
+    <style>
+        #map { height: 500px; }
     </style>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/drawGraph.js" type="text/javascript"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
-   integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
-   crossorigin=""/>
-<link rel="stylesheet" type="text/css" href="../css/style.css">
-<!-- Make sure you put this AFTER Leaflet's CSS -->
- <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
-   integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-   crossorigin=""></script>
-
-    <script>
-        function init() {
-	var mymap = L.map('mapid').setView([127.02,37.53],10);
-
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox.streets',
-    accessToken: 'your.mapbox.access.token'
-}).addTo(mymap);
-
-var marker = L.marker([127, 37]).addTo(mymap);
-var circle = L.circle([125, 39], {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 500
-}).addTo(mymap);
-        }
-    </script>
+    <script src="https://unpkg.com/leaflet@1.0.0/dist/leaflet.js"></script>
+    <script src="../js/leaflet.curve.js"></script>
+    <script src="../js/heatmap.js"></script>
+    <script src="../js/leaflet-heatmap.js"></script>
 </head>
-<body onload="init();">
-<div id="mapid"></div>
+<body>
 <div class="row">
-    <div class="col-sm-8">
-        <div id="basicMa"></div>
-    </div>
-    <div class="col-sm-4">
+    <div class="col-sm-10" id="map"></div>
+    <div class="col-sm-2">
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Vis</div>
+            <div class="panel-body">
+                <div class="form-group" >
+                    <div class="btn-group btn-group-vertical" data-toggle="buttons">
+                        <label class="btn btn-success">
+                            <input class="genre" type="radio" name="vis" title="clear" onclick="filter(this.title)" autocomplete="on">Clear
+                        </label>
+
+                        <label class="btn btn-default">
+                            <input class="genre" type="radio" name="vis" title="path" onclick="filter(this.title)" autocomplete="off">Path
+                        </label>
+                        <label class="btn btn-default">
+                            <input class="genre" type="radio" name="vis" title="heatmap" onclick="filter(this.title)" autocomplete="off">Heatmap
+                        </label>
+                        <label class="btn btn-default">
+                            <input class="genre" type="radio" name="vis" title="color" onclick="filter(this.title)" autocomplete="off">Color
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
+
+
+
+<script>
+    //set up map 46.05, 11.05
+    //var map = L.map('map').setView([46.05, 11.05], 5);
+    var map = L.map('map').setView([37.53, 127.02], 10);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+    //quadratic bezier curve
+    var pathOne = L.curve(['M',[37.417891, 126.718231],
+        'Q',[37.662896, 126.810242],
+            [37.480035, 126.888519],
+            [37.712887, 127.270294],
+        [37.461506, 127.139832],
+        'T',[37.706368, 127.540833]], {animate: 3000}).addTo(map);
+
+    var cfg = {
+        // radius should be small ONLY if scaleRadius is true (or small radius is intended)
+        // if scaleRadius is false it will be the constant radius used in pixels
+        "radius": 0.15,
+        "maxOpacity": .8,
+        // scales the radius based on map zoom
+        "scaleRadius": true,
+        // if set to false the heatmap uses the global maximum for colorization
+        // if activated: uses the data maximum within the current map boundaries
+        //   (there will always be a red spot with useLocalExtremas true)
+        "useLocalExtrema": true,
+        // which field name in your data represents the latitude - default "lat"
+        latField: 'lat',
+        // which field name in your data represents the longitude - default "lng"
+        lngField: 'lng',
+        // which field name in your data represents the data value - default "value"
+        valueField: 'count'
+    };
+    var heatmapLayer = new HeatmapOverlay(cfg);
+   // addressPoints = addressPoints.map(function (p) { return [p[0], p[1]]; });
+    var points = {
+        max : 2,
+        data : [{lat:37.662896, lng:126.810242, count:2},{lat: 37.578052, lng: 126.96817, count:3},{lat:37.670506, lng:127.55044 , count:2}]
+    }
+//    var heat = L.heatLayer(points,{radius : 20}).addTo(map);
+    heatmapLayer.setData(points);
+    heatmapLayer.addTo(map);
+
+    function onMapClick(e) {
+        console.log(e);
+    }
+
+    map.on('click', onMapClick);
+</script>
 </body>
 </html>
