@@ -72,8 +72,13 @@
             [37.480035, 126.888519],
             [37.712887, 127.270294],
         [37.461506, 127.139832],
-        'T',[37.706368, 127.540833]], {animate: 3000}).addTo(map);
-
+        'T',[37.706368, 127.540833]], {animate: 3000}, {color:'red'}).addTo(map);
+    var pathTwo = L.curve(['M',[37.417891, 126.718231],
+        'Q',[37.641150, 126.808868],
+        [37.621574, 126.995636],
+        [37.595464, 127.216736],
+        [37.635713, 127.638336],
+        'T',[37.675940, 127.643829]], {animate: 3000}).addTo(map);
     var cfg = {
         // radius should be small ONLY if scaleRadius is true (or small radius is intended)
         // if scaleRadius is false it will be the constant radius used in pixels
@@ -120,6 +125,10 @@
         console.log(e);
     }
 
+    window.filter = function(title) {
+        console.log("hello");
+        map.removeLayer(heatmapLayer);
+    }
     map.on('click', onMapClick);
 </script>
 </body>
