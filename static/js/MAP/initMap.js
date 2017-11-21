@@ -117,19 +117,26 @@ var mapManager = {
 
         //Fetch some data from a GeoJSON file
         $.getJSON("../static/data/points.json", function(json) {
-            var testlayer = L.geoJson(json);
+            var testlayer = L.geoJson(json, {
+                onEachFeature: function(feature,layer) {
+                    layer.bindPopup(feature.properties.time);
+                }
+            });
 
             //For a Range-Slider use the range property:
-            sliderControl = L.control.sliderControl({
+            var sliderControl = L.control.sliderControl({
                 position: "topright",
                 layer: testlayer,
                 range: true
             });
+
             //Make sure to add the slider to the map ;-)
             mapManager.MAP.addControl(sliderControl);
             //And initialize the slider
             sliderControl.startSlider();
         });
+
+ //       $('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0,10));
 
         $('#clear').on('click', function(){
             console.log("clear");

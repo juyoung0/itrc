@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -45,38 +47,54 @@
     <script src="../static/js/leaflet-draw.js"></script>
     <link rel="stylesheet" href="../static/css/leaflet-toolbar.css"/>
     <script src="../static/js/leaflet-toolbar.js"></script>
-
+    <script src="../static/js/slideControl.js"></script>
+    <script rel="stylesheet" href="../static/css/leaflet-weather.css"></script>
+    <script src="../static/js/leaflet-weather.js"></script>
 
 </head>
 <body>
 <div class="row">
     <div class="col-sm-10" id="map"></div>
     <div class="col-sm-2">
-
-
         <div class="panel panel-primary">
             <div class="panel-heading">Vis</div>
             <div class="panel-body">
                 <div class="form-group" >
                     <div class="btn-group btn-group-vertical" data-toggle="buttons">
                         <label id="clear" class="btn btn-success">
-                            <input class="genre" type="radio" name="vis" autocomplete="on">Clear
+                            <input type="radio" name="vis" autocomplete="on">Clear
                         </label>
-
                         <label id="path" class="btn btn-default">
-                            <input class="genre" type="radio" name="vis"  autocomplete="off">Path
+                            <input type="radio" name="vis"  autocomplete="off">Path
                         </label>
                         <label id="heatmap" class="btn btn-default">
-                            <input class="genre" type="radio" name="vis" autocomplete="off">Heatmap
+                            <input type="radio" name="vis" autocomplete="off">Heatmap
                         </label>
                         <label id="color" class="btn btn-default">
-                            <input class="genre" type="radio" name="vis"  autocomplete="off">Color
+                            <input type="radio" name="vis"  autocomplete="off">Color
                         </label>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="panel panel-primary">
+            <div class="panel-heading">Data</div>
+            <div class="panel-body">
+                <div class="form-group" >
+                    <div class="btn-group btn-group-vertical" data-toggle="buttons">
+                        <label id="first" class="btn btn-default">
+                            <input type="radio" autocomplete="off">First
+                        </label>
+                        <label id="second" class="btn btn-default">
+                            <input type="radio" autocomplete="off">Second
+                        </label>
+                        <label id="third" class="btn btn-default">
+                            <input type="radio" autocomplete="off">Third
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
