@@ -81,28 +81,22 @@ var mapManager = {
                 OSMLayer.addTo(mapManager.MAP);
                 //vdsLayer.addTo(mapManager.MAP);
 
-              //  var curveLayerList = [
-        mapManager.PATH=    L.curve(pathOne, {animate: 3000}, {color:'red'}).addTo(mapManager.MAP);
-                    L.curve(pathTwo, {animate: 3000}).addTo(mapManager.MAP);
-              //  ];
-               // mapManager.PATH = curveLayerList;
-
+                var pathLayer = L.curve(pathOne);
+                pathLayer.addTo(mapManager.MAP);
+                mapManager.PATH = pathLayer;
 
                 var heatmapLayer = new HeatmapOverlay(cfg);
                 // addressPoints = addressPoints.map(function (p) { return [p[0], p[1]]; });
                 mapManager.HEAT = heatmapLayer;
-                heatmapLayer.setData(heatPoints);
+                heatmapLayer.setData(heatOne);
                 heatmapLayer.addTo(mapManager.MAP);
-
-
 
                 var overlayMaps = {
 //                    "<img src='static/images/vdsMarker.png' width='15' height='19'> ": vdsLayer,
                 };
-
                 var layerControl = L.control.layers(null, overlayMaps, {collapsed: false});
 
-            //    mapManager.loadToolbar(mapManager.MAP);
+              //  mapManager.loadToolbar(mapManager.MAP);
                 mapManager.MAP.addControl(layerControl);
 
                 // add route search interaction using drag
@@ -113,6 +107,29 @@ var mapManager = {
                 if ($('.leaflet-zoom-box-control').hasClass('active'))
                     prevBounds = map.getBounds();
           //  });
+
+        /*
+        L.control.weather({
+            lang: "es",
+            units: "metric"
+        }).addTo(mapManager.MAP);
+        */
+
+        //Fetch some data from a GeoJSON file
+        $.getJSON("../static/data/points.json", function(json) {
+            var testlayer = L.geoJson(json);
+
+            //For a Range-Slider use the range property:
+            sliderControl = L.control.sliderControl({
+                position: "topright",
+                layer: testlayer,
+                range: true
+            });
+            //Make sure to add the slider to the map ;-)
+            mapManager.MAP.addControl(sliderControl);
+            //And initialize the slider
+            sliderControl.startSlider();
+        });
 
         $('#clear').on('click', function(){
             console.log("clear");
@@ -132,6 +149,21 @@ var mapManager = {
         $('#color').on('click', function(){
             console.log("draw color");
             mapManager.drawColor();
+        });
+
+        $('#first').on('click', function(){
+            console.log("first data");
+            mapManager.changeData(1);
+        });
+
+        $('#second').on('click', function(){
+            console.log("second data");
+            mapManager.changeData(2);
+        });
+
+        $('#third').on('click', function(){
+            console.log("third data");
+            mapManager.changeData(3);
         });
     }
 
