@@ -108,12 +108,12 @@ var mapManager = {
                     prevBounds = map.getBounds();
           //  });
 
-        /*
+
         L.control.weather({
             lang: "es",
             units: "metric"
         }).addTo(mapManager.MAP);
-        */
+
 
         //Fetch some data from a GeoJSON file
         $.getJSON("../static/data/points.json", function(json) {
@@ -153,8 +153,8 @@ var mapManager = {
             mapManager.drawHeatmap();
         });
 
-        $('#color').on('click', function(){
-            console.log("draw color");
+        $('#marker').on('click', function(){
+            console.log("draw mark");
             mapManager.drawColor();
         });
 

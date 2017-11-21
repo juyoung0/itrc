@@ -34,7 +34,7 @@ Object.assign(mapManager, {
        mapManager.PATH.addTo(mapManager.MAP);
     },
 
-    drawColor : function(){
+    drawMarker : function(){
        // mapManager.PATH.addTo(mapManager.MAP);
     },
 
