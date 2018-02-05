@@ -20,7 +20,7 @@ function style(feature) {
         weight: 2,
         opacity: 1,
         color: 'white',
-        dashArray: '2',
+        dashArray: '1',
         fillOpacity: 0.3
     };
 }
@@ -31,7 +31,7 @@ function highlightFeature(e) {
     layer.setStyle({
         weight: 5,
         color: '#666',
-        dashArray: '2',
+        dashArray: '1',
         fillOpacity: 0.7
     });
 

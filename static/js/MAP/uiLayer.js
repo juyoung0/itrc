@@ -1,6 +1,11 @@
 /**
  * Created by juyoung on 2017-11-20.
  */
+
+var color_red = 'red';
+var color_blue = 'blue';
+var color_green = 'green';
+
 Object.assign(mapManager, {
     loadToolbar : function (map){
 
@@ -44,13 +49,21 @@ Object.assign(mapManager, {
 
         if (dataNum == 1) {
             mapManager.HEAT.setData(heatOne);
-            mapManager.PATH = L.curve(pathOne);
+            mapManager.PATH = L.curve(pathOne, {color: color_blue, fill: false});
         }else if (dataNum == 2) {
             mapManager.HEAT.setData(heatTwo);
-            mapManager.PATH = L.curve(pathTwo);
+            mapManager.PATH = L.curve(pathTwo, {color: color_red, fill: false,
+                animate: {duration:3000, easing:"ease-in"}
+            });
+
+            var marker1 = L.marker([37.402244, 127.488785], {
+                highlight: "temporary"
+            }).addTo(mapManager.MAP);
+
+
         }else if (dataNum == 3) {
             mapManager.HEAT.setData(heatThree);
-            mapManager.PATH = L.curve(pathThree);
+            mapManager.PATH = L.curve(pathThree,{color: color_green, fill: false});
         }
 
         mapManager.drawHeatmap();

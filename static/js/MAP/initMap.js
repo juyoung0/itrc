@@ -40,8 +40,6 @@ var mapManager = {
                 // create layer groups of snapshot to increase search performance
                 mapManager.MAP = map;
 
-
-
                 /* make dot pins */
                 var loadIcon = L.Icon.extend({
                     options: {
@@ -59,8 +57,6 @@ var mapManager = {
                 mapManager.OSM = OSMLayer;
                 OSMLayer.addTo(mapManager.MAP);
                 //vdsLayer.addTo(mapManager.MAP);
-
-
 
                 var pathLayer = L.curve(pathOne);
                 pathLayer.addTo(mapManager.MAP);
