@@ -13,7 +13,6 @@ var mapManager = {
     MAX_BOUNDS: [[35.228794142471024, 128.58123779296878], [35.76991491635478, 129.82131958007815]],
     BOUNDS: [[35.50651802802079, 129.23681259155276], [35.57412411048198, 129.39182281494143]],
     snapshot_idx: 0,
-    cctv_idx: 0,
     WAY: "both",    // basic setting is both way
     TRAFFIC_LAYERS: [],
     TRAFFIC_LAYERS_ID: [], // JSON format
@@ -21,7 +20,9 @@ var mapManager = {
 
 
     init: function (container) {
-        $("#map").width(container.width).height(container.height);
+       // $("#map").width(container.width).height(container.height);
+        console.log(container.width)
+        console.log(container.height)
         console.log("map is initialized");
      //   d3.queue()
      //       .defer(d3.csv, "static/data/cctv.csv")

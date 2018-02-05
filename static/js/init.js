@@ -3,7 +3,7 @@
  */
 
 var container = document.createElement('div');
-container.style.width = container.style.height = '800px';
+container.style.width = container.style.height = '100px';
 container.style.top = container.style.left = 0;
 container.style.position = 'absolute';
 mapManager.init(container);
