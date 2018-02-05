@@ -21,8 +21,6 @@ var mapManager = {
 
     init: function (container) {
        // $("#map").width(container.width).height(container.height);
-        console.log(container.width)
-        console.log(container.height)
         console.log("map is initialized");
      //   d3.queue()
      //       .defer(d3.csv, "static/data/cctv.csv")
@@ -41,11 +39,7 @@ var mapManager = {
 
                 // create layer groups of snapshot to increase search performance
                 mapManager.MAP = map;
-                var snapshot_layergroup = L.layerGroup([]);
-                mapManager.SNAPSHOT_LAYERS_GROUP = snapshot_layergroup;
-                var snapshot_boxgroup = L.layerGroup([]);
-                mapManager.SNAPSHOT_BOX_GROUP = snapshot_boxgroup;
-                snapshot_boxgroup.addTo(mapManager.MAP);
+
 
 
                 /* make dot pins */
@@ -56,22 +50,6 @@ var mapManager = {
                     }
                 });
 
-                /*
-                var vdsIcon = new loadIcon();
-                var vdsMarkers = [];
-                for (var i = 0; i < vdsData.length; i++) {
-                    var lat = vdsData[i].location[0];
-                    var lon = vdsData[i].location[1];
-                    vdsMarkers.push(L.marker([lat, lon], {icon: vdsIcon})
-                        .bindPopup(vdsData[i].name).on('click', function (e) {
-                            console.log('test', e.target._popup._content);
-                            mapManager.setDestination(e.target._popup._content);
-                        }))
-                }
-
-                var vdsLayer = L.layerGroup(vdsMarkers);
-
-                */
 
                 var OSMLayer = L.tileLayer('http://ivaderlab.unist.ac.kr:8085/styles/osm-bright/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
@@ -81,6 +59,8 @@ var mapManager = {
                 mapManager.OSM = OSMLayer;
                 OSMLayer.addTo(mapManager.MAP);
                 //vdsLayer.addTo(mapManager.MAP);
+
+
 
                 var pathLayer = L.curve(pathOne);
                 pathLayer.addTo(mapManager.MAP);
@@ -107,16 +87,12 @@ var mapManager = {
 
                 if ($('.leaflet-zoom-box-control').hasClass('active'))
                     prevBounds = map.getBounds();
+
           //  });
 
 
-        L.control.weather({
-            lang: "es",
-            units: "metric"
-        }).addTo(mapManager.MAP);
 
-
-        //Fetch some data from a GeoJSON file
+        //Fetch some data from a GeoJSON file - mark
         $.getJSON("../static/data/points.json", function(json) {
             var testlayer = L.geoJson(json, {
                 onEachFeature: function(feature,layer) {
@@ -136,6 +112,8 @@ var mapManager = {
             //And initialize the slider
             sliderControl.startSlider();
         });
+
+
 
  //       $('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0,10));
 
